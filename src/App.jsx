@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import RentalDashboard from "./Pages/RentalDashboard";
 import ProtectedRoute from "./ProtectedRoute/ProtectedRoute";
@@ -7,6 +8,7 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/rentalDashboard" element={<ProtectedRoute />}>
           <Route path="/rentalDashboard" element={<RentalDashboard />} />
