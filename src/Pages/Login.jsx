@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Axios from "axios";
 import { TailSpin } from "react-loader-spinner";
-import { useNavigate } from "react-router";
 import Cookies from "js-cookie";
 import { useSelector, useDispatch } from "react-redux";
 import { roomNumberChange } from "../redux/reducer/reducer.js";
@@ -9,7 +8,6 @@ import { roomNumberChange } from "../redux/reducer/reducer.js";
 const Login = () => {
   const roomNumber = useSelector((state) => state.user.roomNumber);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [mobileNumber, setMobileNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isError, setIsError] = useState(false);
@@ -29,24 +27,24 @@ const Login = () => {
       setErrorMessage("Please Select room number");
       setIsError(true);
       setTimeout(() => {
-        setErrorMessage("");
         setIsError(false);
+        setErrorMessage("");
       }, 3000);
     }
     if (mobileNumber === "") {
       setErrorMessage("Please enter mobile number");
       setIsError(true);
       setTimeout(() => {
-        setErrorMessage("");
         setIsError(false);
+        setErrorMessage("");
       }, 3000);
     }
     if (mobileNumber.length < 10) {
       setErrorMessage("Please enter a valid 10-digit mobile number");
       setIsError(true);
       setTimeout(() => {
-        setErrorMessage("");
         setIsError(false);
+        setErrorMessage("");
       }, 3000);
     }
 
@@ -62,8 +60,8 @@ const Login = () => {
           setIsLoading(false);
           const jwtToken = response.data.jwtToken;
           Cookies.set("jwt_token", jwtToken, { expires: 30 });
-          if (response.statusText === "OK") {
-            navigate("/rentalDashboard");
+          if (response.status === 200) {
+            window.location.href = "/rentalDashboard";
           } else {
             setIsError(true);
             setErrorMessage(response.data.message);
