@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router";
 import Axios from "axios";
 import { TailSpin } from "react-loader-spinner";
 import Cookies from "js-cookie";
@@ -7,6 +8,7 @@ import { roomNumberChange } from "../redux/reducer/reducer.js";
 
 const Login = () => {
   const roomNumber = useSelector((state) => state.user.roomNumber);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [mobileNumber, setMobileNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -61,7 +63,7 @@ const Login = () => {
           const jwtToken = response.data.jwtToken;
           Cookies.set("jwt_token", jwtToken, { expires: 30 });
           if (response.status === 200) {
-            window.location.href = "/rentalDashboard";
+            navigate("/rentalDashboard");
           } else {
             setIsError(true);
             setErrorMessage(response.data.message);
