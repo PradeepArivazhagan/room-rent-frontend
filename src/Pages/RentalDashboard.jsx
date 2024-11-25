@@ -5,7 +5,7 @@ const RentalDashboard = () => {
   const currentRoomNumber = useSelector((state) => state.user.roomNumber);
   const handleLogout = () => {
     Cookies.remove("jwt_token");
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (
