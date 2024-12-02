@@ -23,9 +23,7 @@ const RentalDashboard = () => {
   useEffect(() => {
     setIsLoading(true);
     const fetchedRentDetails = async () => {
-      await Axios.get(
-        `https://room-rent-backend.onrender.com/rentalDashboard/${params.id}`
-      )
+      await Axios.get(`http://localhost:4000/rentalDashboard/${params.id}`)
         .then((response) => {
           const rentDetails = response.data.response;
           setMonths(rentDetails.months);
@@ -42,13 +40,13 @@ const RentalDashboard = () => {
     };
 
     fetchedRentDetails();
-  }, []);
+  }, [params.id]);
 
   return (
     <div className="font-[Gabarito] h-screen bg-slate-100">
       <div className="bg-blue-950 fixed w-full px-8 py-3 md:py-4 md:px-20 lg:px-40 flex flex-row items-center justify-between">
-        <div className="flex flex-row items-center gap-1 text-base md:text-lg">
-          <h1 className="text-white">Year: </h1>
+        <div className="flex flex-row items-center gap-1 text-base md:text-lg text-white">
+          <h1>Year: </h1>
           <h1>2024</h1>
         </div>
         <div className="flex flex-row items-center gap-4">
@@ -100,23 +98,49 @@ const RentalDashboard = () => {
                 {totals[0]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[0]}</span>
-                </div>
+                {payment[0] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[0] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[0] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -133,23 +157,49 @@ const RentalDashboard = () => {
                 {totals[1]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[1]}</span>
-                </div>
+                {payment[1] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[1] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[1] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -166,23 +216,49 @@ const RentalDashboard = () => {
                 {totals[2]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[2]}</span>
-                </div>
+                {payment[2] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[2] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[2] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -199,23 +275,49 @@ const RentalDashboard = () => {
                 {totals[3]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[3]}</span>
-                </div>
+                {payment[3] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[3] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[3] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -232,23 +334,49 @@ const RentalDashboard = () => {
                 {totals[4]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[4]}</span>
-                </div>
+                {payment[4] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[4] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[4] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -265,23 +393,49 @@ const RentalDashboard = () => {
                 {totals[5]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[5]}</span>
-                </div>
+                {payment[5] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[5] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[5] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -298,23 +452,49 @@ const RentalDashboard = () => {
                 {totals[6]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[6]}</span>
-                </div>
+                {payment[6] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[6] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[6] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -331,23 +511,49 @@ const RentalDashboard = () => {
                 {totals[7]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[7]}</span>
-                </div>
+                {payment[7] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[7] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[7] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -364,23 +570,49 @@ const RentalDashboard = () => {
                 {totals[8]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[8]}</span>
-                </div>
+                {payment[8] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[8] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[8] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -397,23 +629,49 @@ const RentalDashboard = () => {
                 {totals[9]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[9]}</span>
-                </div>
+                {payment[9] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[9] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[9] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -430,23 +688,49 @@ const RentalDashboard = () => {
                 {totals[10]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[10]}</span>
-                </div>
+                {payment[10] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[10] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[10] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
             <tr className="text-white text-center">
@@ -463,23 +747,49 @@ const RentalDashboard = () => {
                 {totals[11]}
               </td>
               <td className="border-b border-slate-50">
-                <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="size-5"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
-                    />
-                  </svg>
-                  <span>{payment[11]}</span>
-                </div>
+                {payment[11] === "Paid" && (
+                  <div className="text-green-400 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Completed</span>
+                  </div>
+                )}
+                {payment[11] === "Pending" && (
+                  <div className="text-red-500 rounded-sm py-1 px-4 flex flex-row items-center justify-center gap-1 text-sm md:text-base">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-5"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                      />
+                    </svg>
+                    <span>Pending</span>
+                  </div>
+                )}
+                {payment[11] === "Pay Now" && (
+                  <button className="text-white bg-yellow-500 w-fit rounded-sm py-1 px-4 text-sm md:text-base">
+                   Pay Now
+                  </button>
+                )}
               </td>
             </tr>
           </table>
