@@ -10,7 +10,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="/rentalDashboard" element={<RentalDashboard />} />
+          <Route path="/rentalDashboard/:id" element={<RentalDashboard />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>

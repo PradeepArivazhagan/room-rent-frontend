@@ -63,7 +63,7 @@ const Login = () => {
           const jwtToken = response.data.jwtToken;
           Cookies.set("jwt_token", jwtToken, { expires: 30 });
           if (response.status === 200) {
-            navigate("/rentalDashboard");
+            navigate(`/rentalDashboard/${roomNumber}`);
           } else {
             setIsError(true);
             setErrorMessage(response.data.message);
