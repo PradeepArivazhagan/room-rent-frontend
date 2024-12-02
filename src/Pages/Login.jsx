@@ -54,7 +54,7 @@ const Login = () => {
       setIsError(false);
       setErrorMessage("");
       setIsLoading(true);
-      await Axios.post("http://localhost:4000/login", {
+      await Axios.post("https://room-rent-backend.onrender.com/login", {
         roomNumber,
         mobileNumber,
       })

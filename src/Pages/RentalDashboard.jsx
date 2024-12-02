@@ -23,7 +23,7 @@ const RentalDashboard = () => {
   useEffect(() => {
     setIsLoading(true);
     const fetchedRentDetails = async () => {
-      await Axios.get(`http://localhost:4000/rentalDashboard/${params.id}`)
+      await Axios.get(`https://room-rent-backend.onrender.com/rentalDashboard/${params.id}`)
         .then((response) => {
           const rentDetails = response.data.response;
           setMonths(rentDetails.months);
